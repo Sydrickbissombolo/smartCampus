@@ -1,0 +1,114 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f8fb;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px;
+}
+
+h2, h3 {
+    color: #007bff;
+    margin-bottom: 24px;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #007bff 60%, #0056b3 100%);
+    padding: 1rem 2rem;
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.ticket {
+    border: 1px solid #e3e6ee;
+    background: #f9fbfd;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: box-shadow 0.2s;
+}
+.ticket:hover {
+    box-shadow: 0 4px 16px rgba(0,123,255,0.08);
+    border-color: #007bff;
+}
+
+label {
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"], input[type="password"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 18px 0;
+    border: 1px solid #cfd8dc;
+    border-radius: 6px;
+    background: #f6f8fa;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    background: linear-gradient(90deg, #007bff 70%, #0056b3 100%);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #0056b3 70%, #007bff 100%);
+}
+
+.flash {
+    padding: 12px 20px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.flash.success { 
+    background: #d4edda; 
+    color: #155724; 
+    border: 1px solid #c3e6cb; 
+}
+.flash.danger  { 
+    background: #f8d7da; 
+    color: #721c24; 
+    border: 1px solid #f5c6cb; 
+}
+.flash.info    { 
+    background: #d1ecf1; 
+    color: #0c5460; 
+    border: 1px solid #bee5eb; 
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+a:hover {
+    text-decoration: underline;
+}

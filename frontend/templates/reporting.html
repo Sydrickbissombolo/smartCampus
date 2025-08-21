@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reporting</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Weekly Open Tickets</h2>
+  <canvas id="chart"></canvas>
+  <script>
+    const labels = {{ data|map(attribute='week')|list|tojson|safe if data else '[]' }};
+    const counts = {{ data|map(attribute='count')|list|tojson|safe if data else '[]' }};
+    const ctx = document.getElementById('chart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Tickets',
+          data: counts,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)'
+        }]
+      }
+    });
+  </script>
+</body>
+</html>

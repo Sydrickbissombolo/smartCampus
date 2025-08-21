@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="navbar">Welcome, {{ user.username }} (Student)</div>
+  <h3>Create New Ticket</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
+  <form action="{{ url_for('new_ticket') }}" method="POST">
+    <input type="text" name="title" placeholder="Title" required><br>
+    <select name="category">
+      <option value="network">Network</option>
+      <option value="hardware">Hardware</option>
+      <option value="software">Software</option>
+    </select><br>
+    <textarea name="description" placeholder="Describe issue"></textarea><br>
+    <button type="submit">Submit Ticket</button>
+  </form>
+  <h3>My Tickets</h3>
+  <input type="text" id="search" onkeyup="filterTickets()" placeholder="Search tickets...">
+  {% for t in tickets %}
+    <div class="ticket">
+      <b>{{ t['title'] }}</b> ({{ t['category'] }})<br>
+      {{ t['description'] }}<br>
+      Status: {{ t['status'] }} | Created: {{ t['created_at'] }}
+    </div>
+  {% endfor %}
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
