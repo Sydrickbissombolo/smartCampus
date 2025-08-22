@@ -15,17 +15,12 @@
   </nav>
 </header>
   <form method="POST">
-    <label>Username:</label>
-    <input type="text" name="username" placeholder="Please create a Username" required><br>
-    <label>Password:</label>
-    <input type="password" name="password" placeholder="Please create a password" required><br>
-    <label>Role:</label>
-    <select name="role">
-      <option value="student">Student</option>
-      <option value="technician">Technician</option>
-    </select><br>
-    <button type="submit">Register</button>
-  </form>
+  <label>Username:</label>
+  <input type="text" name="username" placeholder="Enter your username" required>
+  <label>Password:</label>
+  <input type="password" name="password" placeholder="Create a password" required>
+  <button type="submit">Register</button>
+</form>
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -33,5 +28,17 @@
       {% endfor %}
     {% endif %}
   {% endwith %}
+
+  <footer>
+  <div class="footer-content">
+    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+    <p>
+      <a href="{{ url_for('welcome') }}">Home</a> |
+      <a href="{{ url_for('change_password') }}">Change Password</a> |
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
+  </div>
+</footer>
 </body>
 </html>

@@ -1,23 +1,37 @@
-/* BYU-Pathway Worldwide Colors */
+/* Color Palette */
 :root {
-    --byu-navy: #002e5d;
-    --byu-gold: #fdb913;
-    --byu-light-blue: #6ec1e4;
-    --byu-gray: #f4f8fb;
-    --byu-green: #294936;
-    --byu-olive: #A4B494;
-    --byu-dark-green: #0B6E4F;
-    --byu-card: #3C5233;
+    /* Ensign College Colors */
+    --ensign-green: #006645;
+    --ensign-light-green: #33B04A;
+    --ensign-yellow: #FDB515;
+
+    /* BYU-Idaho Colors */
+    --byui-blue: #214491;
+    --byui-black: #000000;
+    --byui-gray: #f4f4f4;
+    --byui-dark-gray: #333333;
+    --byui-white: #ffffff;
+
+    /* Supporting */
+    --neutral-border: #dddddd;
 }
 
 /* General body and layout */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--byu-gray);
+    background: var(--byui-gray);
     margin: 0;
     padding: 0;
     text-align: center;
-    color: var(--byu-navy);
+    color: var(--byui-dark-gray);
+    line-height: 1.6;
+}
+
+/* Serif accents for headings */
+h1, h2, h3, h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 /* Header with logo */
@@ -25,146 +39,168 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
-    background-color: var(--byu-green);
+    padding: 20px 30px;
+    background-color: var(--ensign-green);
+    color: var(--byui-white);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 header img.logo {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background-color: #294936;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: 200px;
-    margin-right: 24px;
+    height: 110px;
+    margin-right: 20px;
 }
 
+/* Footer */
 footer {
-    padding: 40px;
-    background-color: var(--byu-green);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 100px;
-    color: var(--byu-gold);
+    padding: 40px 20px;
+    background-color: var(--ensign-green);
+    color: var(--ensign-yellow);
+    text-align: center;
+    margin-top: 60px;
+    font-size: 0.95rem;
 }
+
+footer a {
+    color: var(--ensign-yellow);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--byui-white);
+}
+
+footer .small-text {
+    font-size: 0.85rem;
+    color: var(--byui-white);
+    margin-top: 8px;
+}
+
 
 /* Welcome container */
 .welcome-container {
-    max-width: 600px;
-    margin: 60px auto;
-    background: #fff;
+    max-width: 640px;
+    margin: 80px auto;
+    background: var(--byui-white);
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,46,93,0.08);
-    padding: 48px 32px;
+    border: 1px solid var(--neutral-border);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.05);
+    padding: 60px 40px;
     text-align: center;
 }
 
 .welcome-container .logo {
     width: 120px;
-    margin-bottom: 24px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 28px;
 }
 
 h1 {
-    margin-top: 30px;
-    font-size: 3em;
-    color: var(--byu-navy);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 2.8em;
+    color: var(--byui-black);
 }
 
 .subtitle {
-    color: var(--byu-light-blue);
-    font-size: 1.2rem;
-    margin-bottom: 32px;
+    color: var(--byui-blue);
+    font-size: 1.25rem;
+    margin-bottom: 40px;
 }
 
 p {
-    color: #555;
-    margin-bottom: 30px;
-    font-size: 1.2em;
+    color: var(--byui-dark-gray);
+    margin-bottom: 36px;
+    font-size: 1.1em;
+    line-height: 1.7;
 }
 
 /* Login container */
 .container {
-    background: var(--byu-card);
+    background: var(--byui-white);
     width: 400px;
-    margin: 40px auto;
-    padding: 30px;
+    margin: 50px auto;
+    padding: 40px 30px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid var(--neutral-border);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
 }
 
 label {
     display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    color: var(--byu-card);
+    margin-top: 18px;
+    font-weight: 600;
+    color: var(--byui-dark-gray);
     text-align: left;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
 }
 
 input[type="text"], input[type="password"], select, textarea {
-    width: 90%;
+    width: 92%;
     padding: 12px;
-    margin: 12px 0 18px 0;
-    border: 1px solid var(--byu-dark-green);
+    margin: 14px 0 22px 0;
+    border: 1px solid var(--ensign-green);
     border-radius: 8px;
-    background: #f6f8fa;
+    background: var(--byui-white);
     font-size: 1em;
     transition: border-color 0.2s;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
-    border-color: var(--byu-light-blue);
+    border-color: var(--byui-blue);
     outline: none;
 }
 
+/* Buttons */
 button, .btn {
-    width: 95%;
+    width: 96%;
     padding: 14px;
-    background: linear-gradient(90deg, var(--byu-navy) 70%, var(--byu-gold) 100%);
-    color: white;
+    background: var(--byui-blue);
+    color: var(--byui-white);
     border: none;
     border-radius: 8px;
-    font-size: 1em;
+    font-size: 1.05em;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,46,93,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: background 0.2s, transform 0.2s;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 16px;
+    margin-bottom: 14px;
     text-decoration: none;
     display: inline-block;
 }
 
 button:hover, .btn:hover {
-    background: linear-gradient(90deg, var(--byu-gold) 70%, var(--byu-navy) 100%);
+    background: var(--ensign-yellow);
+    color: var(--byui-black);
     transform: scale(1.05);
 }
 
 /* Ticket card styles */
 .ticket-card, .ticket {
-    background: var(--byu-card);
+    background: var(--byui-white);
     border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    color: #fff;
+    border: 1px solid var(--neutral-border);
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 24px;
+    padding: 24px;
+    color: var(--byui-dark-gray);
     text-align: left;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .ticket-card:hover, .ticket:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 16px rgba(0,46,93,0.10);
-    border-color: var(--byu-navy);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    border-color: var(--byui-blue);
 }
 
 .ticket-header {
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: bold;
-    margin-bottom: 10px;
-    color: var(--byu-gold);
+    margin-bottom: 12px;
+    color: var(--byui-black);
+    font-family: Georgia, 'Times New Roman', serif;
 }
 
 .ticket-status, .status {
@@ -172,43 +208,163 @@ button:hover, .btn:hover {
     padding: 6px 14px;
     border-radius: 20px;
     font-weight: bold;
-    color: #fff;
-    margin-bottom: 8px;
+    color: var(--byui-white);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
 }
 
-.open { background: #e9c46a; color: #fff; }
-.in-progress { background: #f4a261; color: #fff; }
-.closed { background: #2a9d8f; color: #fff; }
-.resolu { background: #2e7d32; }
+.open { 
+    background: var(--ensign-yellow); 
+    color: var(--byui-black); 
+}
+
+.in-progress { 
+    background: var(--ensign-light-green); 
+    color: var(--byui-white); 
+}
+
+.closed { 
+    background: var(--ensign-green); 
+    color: var(--byui-white); 
+}
+
+.resolved { 
+    background: var(--byui-blue); 
+    color: var(--byui-white); 
+}
 
 .ticket-body {
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 1em;
-    color: #eee;
+    color: var(--byui-dark-gray);
+    line-height: 1.6;
 }
 
-.ticket-card p, .ticket p {
-    color: #fff;
+/* User Management Table Improvements */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.user-table th, .user-table td {
+    padding: 18px 12px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1em;
+}
+
+.user-table th {
+    font-size: 1.1em;
+    background: #294936;
+    color: #fdb913;
+}
+
+.user-table td {
+    background: #f4f8fb;
+}
+
+.user-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.user-reset-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-reset-form input[type="text"] {
+    min-width: 140px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.user-table th[style], .user-table td[style] {
+    min-width: 140px;
+}
+
+@media (max-width: 700px) {
+    .user-table, .user-table th, .user-table td {
+        font-size: 0.95em;
+        padding: 10px 4px;
+    }
+    .user-reset-form input[type="text"] {
+        min-width: 90px;
+    }
 }
 
 /* Flash messages */
 .flash {
-    padding: 12px 20px;
-    margin-bottom: 18px;
+    padding: 14px 22px;
+    margin-bottom: 20px;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
 }
-.flash.success { background: #eaf7e1; color: #155724; border: 1px solid #c3e6cb; }
-.flash.danger  { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-.flash.info    { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
 
+.flash.success { 
+    background: #eaf7e1; 
+    color: #155724; 
+    border: 1px solid #c3e6cb; 
+}
+
+.flash.danger  { 
+    background: #f8d7da; 
+    color: #721c24; 
+    border: 1px solid #f5c6cb; 
+}
+
+.flash.info    { 
+    background: #d1ecf1; 
+    color: #0c5460; 
+    border: 1px solid #bee5eb; 
+}
+
+/* Links */
 a {
-    color: var(--byu-light-blue);
+    color: var(--byui-blue);
     text-decoration: none;
     font-weight: 500;
 }
+
 a:hover {
     text-decoration: underline;
-    color: var(--byu-gold);
+    color: var(--ensign-yellow);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    header img.logo {
+        margin-bottom: 10px;
+    }
+
+    .welcome-container, .container {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .ticket-card, .ticket {
+        padding: 20px;
+    }
+
+    .user-table th, .user-table td {
+        font-size: 0.9em;
+        padding: 12px 8px;
+    }
+}
+/* Chart.js styles */
+canvas {
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
 }

@@ -28,6 +28,7 @@ def init_db():
         description TEXT,
         email TEXT,
         phone TEXT,
+        attachment TEXT,
         status TEXT DEFAULT 'open',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )

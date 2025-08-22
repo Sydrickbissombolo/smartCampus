@@ -12,6 +12,7 @@
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
       <a href="{{ url_for('users') }}" class="btn">User Management</a>
+      <a href="{{ url_for('reporting') }}" class="btn">Reporting</a>
     {% endif %}
     <a href="{{ url_for('welcome') }}" class="btn">Home</a>
   </nav>
@@ -34,6 +35,11 @@
         <p><strong>Status:</strong> {{ ticket.status }}</p>
         <p><strong>Student Email:</strong> {{ ticket.email }}</p>
         <p><strong>Student Phone:</strong> {{ ticket.phone }}</p>
+        {% if ticket.attachment %}
+            <p><strong>Attachment:</strong>
+                <a href="{{ url_for('static', filename='attachments/' ~ ticket.attachment) }}" target="_blank">Download</a>
+            </p>
+        {% endif %}
         <form method="POST" action="{{ url_for('change_status', ticket_id=ticket.id) }}">
           <label>Change Status:</label>
           <select name="status">
@@ -61,5 +67,17 @@
   </div>
 {% endfor %}
   </div>
+
+  <footer>
+  <div class="footer-content">
+    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+    <p>
+      <a href="{{ url_for('welcome') }}">Home</a> |
+      <a href="{{ url_for('change_password') }}">Change Password</a> |
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
+  </div>
+</footer>
 </body>
 </html>

@@ -17,6 +17,13 @@
 </header>
   <div class="navbar">Welcome, {{ user.username }} (Student)</div>
   <h3>Create New Ticket</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
   <form method="POST" action="{{ url_for('new_ticket') }}">
   <label for="title">Title:</label>
   <input type="text" name="title" placeholder="Add a title to the ticket" required>
@@ -33,6 +40,8 @@
   <input type="email" name="email" placeholder="Enter your email address" required>
   <label for="phone">Your Phone:</label>
   <input type="text" name="phone" placeholder="Type your phone number" required>
+  <label for="attachment">Attachment:</label>
+  <input type="file" name="attachment">
   <button type="submit">Submit Ticket</button>
 </form>
   <h3>My Tickets</h3>
@@ -45,5 +54,17 @@
     </div>
   {% endfor %}
   <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+  <footer>
+  <div class="footer-content">
+    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+    <p>
+      <a href="{{ url_for('welcome') }}">Home</a> |
+      <a href="{{ url_for('change_password') }}">Change Password</a> |
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
+  </div>
+</footer>
 </body>
 </html>

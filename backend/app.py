@@ -1,12 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from backend.database import init_db, get_db
 from backend.auth import login_required, role_required
-from backend.models import create_ticket, get_tickets, get_ticket_counts_by_week, create_user, get_users, send_ticket_confirmation
+from backend.models import create_ticket, get_tickets, get_ticket_counts_by_week, create_user, get_users, send_ticket_confirmation, get_ticket_by_id
+from backend.emailer import send_email
 import os
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = "frontend/static/attachments"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "pdf", "docx"}
 
 app = Flask(__name__, template_folder="../frontend/templates", static_folder="../frontend/static")
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.secret_key = os.getenv("SECRET_KEY", "devkey")
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 init_db()
 
@@ -24,8 +33,14 @@ def add_comment(ticket_id):
     conn.execute("INSERT INTO comments (ticket_id, technician, comment) VALUES (?, ?, ?)",
                  (ticket_id, session["user"]["username"], comment))
     conn.commit()
+    ticket = get_ticket_by_id(ticket_id)
+    send_email(
+        to=ticket["email"],
+        subject="New Comment on Your Ticket",
+        body=f"Dear {ticket['username']},\n\nA new comment has been added to your ticket '{ticket['title']}'. Please log in to view the details.\n\nThank you!"
+    )
     conn.close()
-    flash("Comment added.", "success")
+    flash("Comment added and student notified.", "success")
     return redirect(url_for("technician_dashboard"))
 
 @app.route("/ticket/<int:ticket_id>/status", methods=["POST"])
@@ -36,6 +51,12 @@ def change_status(ticket_id):
     conn = get_db()
     conn.execute("UPDATE tickets SET status=? WHERE id=?", (status, ticket_id))
     conn.commit()
+    ticket = get_ticket_by_id(ticket_id)
+    send_email(
+        to=ticket["email"],
+        subject="Ticket Status Updated",
+        body=f"Dear {ticket['username']},\n\nThe status of your ticket '{ticket['title']}' has been updated to '{status}'. Please log in to view the details.\n\nThank you!"
+    )
     conn.close()
     flash("Status updated.", "success")
     return redirect(url_for("technician_dashboard"))
@@ -163,7 +184,11 @@ def new_ticket():
     description = request.form["description"]
     email = request.form["email"]
     phone = request.form["phone"]
-    create_ticket(session["user"]["username"], title, category, description, email, phone)
+    attachment = request.files.get("attachment")
+    if attachment and allowed_file(attachment.filename):
+        filename = secure_filename(attachment.filename)
+        attachment.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+    create_ticket(session["user"]["username"], title, category, description, email, phone, filename if attachment else None)
     send_ticket_confirmation(email, title)
     flash("Ticket created successfully!", "success")
     return redirect(url_for("student_dashboard"))
@@ -180,7 +205,7 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        role = request.form["role"]
+        role = "student"
         try:
             create_user(username, password, role)
             flash("Registration successful! Please log in.", "success")
