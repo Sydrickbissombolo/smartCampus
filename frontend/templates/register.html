@@ -4,11 +4,21 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 <body>
   <h2>Register</h2>
+  <header>
+  <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <nav>
+    {% if session.get('user') %}
+      <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+      <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
+    {% endif %}
+    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+  </nav>
+</header>
   <form method="POST">
     <label>Username:</label>
-    <input type="text" name="username" required><br>
+    <input type="text" name="username" placeholder="Please create a Username" required><br>
     <label>Password:</label>
-    <input type="password" name="password" required><br>
+    <input type="password" name="password" placeholder="Please create a password" required><br>
     <label>Role:</label>
     <select name="role">
       <option value="student">Student</option>

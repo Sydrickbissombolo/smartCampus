@@ -5,7 +5,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <h2>Login</h2>
+  <header>
+  <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <nav>
+    {% if session.get('user') %}
+      <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+      <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
+    {% endif %}
+    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+  </nav>
+</header>
+<h2>Please login to get access the ticketing system.</h2>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -15,9 +26,9 @@
     {% endwith %}
   <form method="POST">
     <label>Username:</label>
-    <input type="text" name="username" required><br><br>
+    <input type="text" name="username" required placeholder=" example: aminata"><br><br>
     <label>Password:</label>
-    <input type="password" name="password" required><br><br>
+    <input type="password" name="password" required placeholder="enter password"><br><br>
     <button type="submit">Login</button>
   </form>
   <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from backend.database import init_db, get_db
 from backend.auth import login_required, role_required
-from backend.models import create_ticket, get_tickets, get_ticket_counts_by_week, create_user
+from backend.models import create_ticket, get_tickets, get_ticket_counts_by_week, create_user, get_users, send_ticket_confirmation
 import os
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -11,7 +11,76 @@ app.secret_key = os.getenv("SECRET_KEY", "devkey")
 init_db()
 
 # ---- Routes ----
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
+def welcome():
+    return render_template("welcome.html")
+
+@app.route("/ticket/<int:ticket_id>/comment", methods=["POST"])
+@login_required
+@role_required("technician")
+def add_comment(ticket_id):
+    comment = request.form["comment"]
+    conn = get_db()
+    conn.execute("INSERT INTO comments (ticket_id, technician, comment) VALUES (?, ?, ?)",
+                 (ticket_id, session["user"]["username"], comment))
+    conn.commit()
+    conn.close()
+    flash("Comment added.", "success")
+    return redirect(url_for("technician_dashboard"))
+
+@app.route("/ticket/<int:ticket_id>/status", methods=["POST"])
+@login_required
+@role_required("technician")
+def change_status(ticket_id):
+    status = request.form["status"]
+    conn = get_db()
+    conn.execute("UPDATE tickets SET status=? WHERE id=?", (status, ticket_id))
+    conn.commit()
+    conn.close()
+    flash("Status updated.", "success")
+    return redirect(url_for("technician_dashboard"))
+
+@app.route("/users/edit/<int:user_id>", methods=["GET", "POST"])
+@login_required
+@role_required("technician")
+def edit_user(user_id):
+    conn = get_db()
+    user = conn.execute("SELECT id, username, role FROM users WHERE id = ?", (user_id,)).fetchone()
+    if request.method == "POST":
+        new_role = request.form["role"]
+        conn.execute("UPDATE users SET role=? WHERE id=?", (new_role, user_id))
+        conn.commit()
+        conn.close()
+        flash("User updated successfully.", "success")
+        return redirect(url_for("users"))
+    conn.close()
+    return render_template("edit_user.html", user=user)
+
+@app.route("/users/delete/<int:user_id>", methods=["POST"])
+@login_required
+@role_required("technician")
+def delete_user(user_id):
+    conn = get_db()
+    conn.execute("DELETE FROM users WHERE id=?", (user_id,))
+    conn.commit()
+    conn.close()
+    flash("User deleted successfully.", "success")
+    return redirect(url_for("users"))
+
+@app.route("/users/reset_password/<int:user_id>", methods=["POST"])
+@login_required
+@role_required("technician")
+def reset_user_password(user_id):
+    new_pw = request.form["new_password"]
+    hashed_pw = generate_password_hash(new_pw)
+    conn = get_db()
+    conn.execute("UPDATE users SET password=? WHERE id=?", (hashed_pw, user_id))
+    conn.commit()
+    conn.close()
+    flash("Password reset successfully.", "success")
+    return redirect(url_for("users"))
+
+@app.route("/login", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         username = request.form["username"]
@@ -34,6 +103,50 @@ def student_dashboard():
     tickets = get_tickets(session["user"]["username"])
     return render_template("student.html", tickets=tickets, user=session["user"])
 
+
+@app.route("/users")
+@login_required
+@role_required("technician")
+def users():
+    page = int(request.args.get("page", 1))
+    per_page = 10
+    offset = (page - 1) * per_page
+    conn = get_db()
+    users = conn.execute("SELECT id, username, role FROM users ORDER BY id LIMIT ? OFFSET ?", (per_page, offset)).fetchall()
+    total = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+    conn.close()
+    user_list = [dict(u) for u in users]
+    return render_template("users.html", users=user_list, user=session["user"], page=page, total=total, per_page=per_page)
+
+@app.route("/users/search")
+@login_required
+@role_required("technician")
+def search_users():
+    query = request.args.get("q", "")
+    page = int(request.args.get("page", 1))
+    per_page = 10
+    offset = (page - 1) * per_page
+    conn = get_db()
+    users = conn.execute(
+        "SELECT id, username, role FROM users WHERE username LIKE ? ORDER BY id LIMIT ? OFFSET ?",
+        (f"%{query}%", per_page, offset)
+    ).fetchall()
+    total = conn.execute(
+        "SELECT COUNT(*) FROM users WHERE username LIKE ?",
+        (f"%{query}%",)
+    ).fetchone()[0]
+    conn.close()
+    user_list = [dict(u) for u in users]
+    return render_template(
+        "users.html",
+        users=user_list,
+        user=session["user"],
+        query=query,
+        page=page,
+        total=total,
+        per_page=per_page
+    )
+
 @app.route("/technician")
 @login_required
 @role_required("technician")
@@ -48,7 +161,10 @@ def new_ticket():
     title = request.form["title"]
     category = request.form["category"]
     description = request.form["description"]
-    create_ticket(session["user"]["username"], title, category, description)
+    email = request.form["email"]
+    phone = request.form["phone"]
+    create_ticket(session["user"]["username"], title, category, description, email, phone)
+    send_ticket_confirmation(email, title)
     flash("Ticket created successfully!", "success")
     return redirect(url_for("student_dashboard"))
 
@@ -89,7 +205,7 @@ def change_password():
         else:
             flash("Old password incorrect.", "danger")
         conn.close()
-    return render_template("change_password.html")
+    return render_template("change_password.html", user=session["user"])
 
 @app.route("/ticket/<int:ticket_id>/close", methods=["POST"])
 @login_required
@@ -106,7 +222,7 @@ def close_ticket(ticket_id):
 def logout():
     session.clear()
     flash("Logged out.", "info")
-    return redirect(url_for("index"))
+    return redirect(url_for("welcome"))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,5 +1,7 @@
 from backend.database import get_db
 from werkzeug.security import generate_password_hash
+import smtplib
+from email.mime.text import MIMEText
 
 def create_user(username, password, role):
     conn = get_db()
@@ -11,35 +13,61 @@ def create_user(username, password, role):
     conn.commit()
     conn.close()
     
-def create_ticket(username, title, category, description):
+def create_ticket(username, title, category, description, email, phone):
     conn = get_db()
-    cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO tickets (username, title, category, description) VALUES (?, ?, ?, ?)",
-        (username, title, category, description),
+    conn.execute(
+        "INSERT INTO tickets (username, title, category, description, email, phone) VALUES (?, ?, ?, ?, ?, ?)",
+        (username, title, category, description, email, phone)
     )
     conn.commit()
     conn.close()
 
+def send_ticket_confirmation(to_email, ticket_title):
+    from_email = "smartnoreplycampus@gmail.com"
+    subject = "Ticket Received - Smart Campus Services"
+    body = f"Dear Student,\n\nYour ticket '{ticket_title}' has been received. Our technician will contact you soon.\n\nThank you!"
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = from_email
+    msg["To"] = to_email
+
+    # Update with your SMTP server details
+    smtp_server = "smtp.yourdomain.com"
+    smtp_port = 587
+    smtp_user = "smartnoreplycampus@gmail.com"
+    smtp_password = "xqkn uizr hnfu leec"
+
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_user, smtp_password)
+        server.sendmail(from_email, [to_email], msg.as_string())
+        server.quit()
+    except Exception as e:
+        print("Email sending failed:", e)
+
 def get_tickets(username=None):
     conn = get_db()
-    cur = conn.cursor()
     if username:
-        cur.execute("SELECT * FROM tickets WHERE username=? ORDER BY created_at DESC", (username,))
+        tickets = conn.execute("SELECT * FROM tickets WHERE username = ?", (username,)).fetchall()
     else:
-        cur.execute("SELECT * FROM tickets ORDER BY created_at DESC")
-    rows = cur.fetchall()
+        tickets = conn.execute("SELECT * FROM tickets").fetchall()
+    # Attach comments to each ticket
+    ticket_list = []
+    for ticket in tickets:
+        comments = conn.execute("SELECT * FROM comments WHERE ticket_id = ? ORDER BY created_at ASC", (ticket["id"],)).fetchall()
+        ticket_dict = dict(ticket)
+        ticket_dict["comments"] = [dict(c) for c in comments]
+        ticket_list.append(ticket_dict)
     conn.close()
-    return rows
+    return ticket_list
 
 
 def get_users():
     conn = get_db()
-    cur = conn.cursor()
-    cur.execute("SELECT id, username, role FROM users ORDER BY id")
-    rows = cur.fetchall()
+    users = conn.execute("SELECT id, username, role FROM users ORDER BY id").fetchall()
     conn.close()
-    return rows
+    return [dict(u) for u in users]
 
 def get_ticket_counts_by_week():
     conn = get_db()

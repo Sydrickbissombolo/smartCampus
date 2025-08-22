@@ -1,114 +1,214 @@
+/* BYU-Pathway Worldwide Colors */
+:root {
+    --byu-navy: #002e5d;
+    --byu-gold: #fdb913;
+    --byu-light-blue: #6ec1e4;
+    --byu-gray: #f4f8fb;
+    --byu-green: #294936;
+    --byu-olive: #A4B494;
+    --byu-dark-green: #0B6E4F;
+    --byu-card: #3C5233;
+}
+
+/* General body and layout */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f8fb;
+    background: var(--byu-gray);
     margin: 0;
     padding: 0;
-    color: #222;
+    text-align: center;
+    color: var(--byu-navy);
 }
 
-.container {
-    max-width: 800px;
-    margin: 40px auto;
+/* Header with logo */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: var(--byu-green);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header img.logo {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #294936;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 200px;
+    margin-right: 24px;
+}
+
+footer {
+    padding: 40px;
+    background-color: var(--byu-green);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 100px;
+    color: var(--byu-gold);
+}
+
+/* Welcome container */
+.welcome-container {
+    max-width: 600px;
+    margin: 60px auto;
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,46,93,0.08);
+    padding: 48px 32px;
+    text-align: center;
 }
 
-h2, h3 {
-    color: #007bff;
+.welcome-container .logo {
+    width: 120px;
     margin-bottom: 24px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.navbar {
-    background: linear-gradient(90deg, #007bff 60%, #0056b3 100%);
-    padding: 1rem 2rem;
-    color: white;
+h1 {
+    margin-top: 30px;
+    font-size: 3em;
+    color: var(--byu-navy);
+}
+
+.subtitle {
+    color: var(--byu-light-blue);
     font-size: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    margin-bottom: 32px;
 }
 
-.ticket {
-    border: 1px solid #e3e6ee;
-    background: #f9fbfd;
-    padding: 18px 20px;
-    margin-bottom: 18px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    transition: box-shadow 0.2s;
+p {
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1.2em;
 }
-.ticket:hover {
-    box-shadow: 0 4px 16px rgba(0,123,255,0.08);
-    border-color: #007bff;
+
+/* Login container */
+.container {
+    background: var(--byu-card);
+    width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 label {
-    font-weight: 500;
-    color: #333;
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--byu-card);
+    text-align: left;
 }
 
 input[type="text"], input[type="password"], select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 18px 0;
-    border: 1px solid #cfd8dc;
-    border-radius: 6px;
+    width: 90%;
+    padding: 12px;
+    margin: 12px 0 18px 0;
+    border: 1px solid var(--byu-dark-green);
+    border-radius: 8px;
     background: #f6f8fa;
-    font-size: 1rem;
+    font-size: 1em;
     transition: border-color 0.2s;
 }
+
 input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
-    border-color: #007bff;
+    border-color: var(--byu-light-blue);
     outline: none;
 }
 
-button {
-    background: linear-gradient(90deg, #007bff 70%, #0056b3 100%);
+button, .btn {
+    width: 95%;
+    padding: 14px;
+    background: linear-gradient(90deg, var(--byu-navy) 70%, var(--byu-gold) 100%);
     color: white;
     border: none;
-    padding: 12px 32px;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 1em;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,123,255,0.08);
-    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(0,46,93,0.08);
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    display: inline-block;
 }
 
-button:hover {
-    background: linear-gradient(90deg, #0056b3 70%, #007bff 100%);
+button:hover, .btn:hover {
+    background: linear-gradient(90deg, var(--byu-gold) 70%, var(--byu-navy) 100%);
+    transform: scale(1.05);
 }
 
+/* Ticket card styles */
+.ticket-card, .ticket {
+    background: var(--byu-card);
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    color: #fff;
+    text-align: left;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ticket-card:hover, .ticket:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0,46,93,0.10);
+    border-color: var(--byu-navy);
+}
+
+.ticket-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--byu-gold);
+}
+
+.ticket-status, .status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.open { background: #e9c46a; color: #fff; }
+.in-progress { background: #f4a261; color: #fff; }
+.closed { background: #2a9d8f; color: #fff; }
+.resolu { background: #2e7d32; }
+
+.ticket-body {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #eee;
+}
+
+.ticket-card p, .ticket p {
+    color: #fff;
+}
+
+/* Flash messages */
 .flash {
     padding: 12px 20px;
     margin-bottom: 18px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
 }
-.flash.success { 
-    background: #d4edda; 
-    color: #155724; 
-    border: 1px solid #c3e6cb; 
-}
-.flash.danger  { 
-    background: #f8d7da; 
-    color: #721c24; 
-    border: 1px solid #f5c6cb; 
-}
-.flash.info    { 
-    background: #d1ecf1; 
-    color: #0c5460; 
-    border: 1px solid #bee5eb; 
-}
+.flash.success { background: #eaf7e1; color: #155724; border: 1px solid #c3e6cb; }
+.flash.danger  { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.flash.info    { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
 
 a {
-    color: #007bff;
+    color: var(--byu-light-blue);
     text-decoration: none;
     font-weight: 500;
 }
 a:hover {
     text-decoration: underline;
+    color: var(--byu-gold);
 }

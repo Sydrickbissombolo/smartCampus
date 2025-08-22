@@ -2,11 +2,23 @@
 <html>
 <head>
   <title>Technician Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <div class="navbar">Welcome, {{ user.username }} (Technician)</div>
-  <h3>All Tickets</h3>
+    <header>
+  <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <nav>
+    {% if session.get('user') %}
+      <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+      <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
+      <a href="{{ url_for('users') }}" class="btn">User Management</a>
+    {% endif %}
+    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+  </nav>
+</header>
+  <div class="container">
+    <h2>Technician Dashboard</h2>
+    <div class="navbar">Welcome, {{ user.username }} (Technician)</div>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -14,15 +26,40 @@
         {% endfor %}
         {% endif %}
     {% endwith %}
-  <input type="text" id="search" onkeyup="filterTickets()" placeholder="Search tickets...">
-  {% for t in tickets %}
-    <div class="ticket">
-      <b>{{ t['title'] }}</b> ({{ t['category'] }})<br>
-      {{ t['description'] }}<br>
-      Submitted by: {{ t['username'] }} | Status: {{ t['status'] }}
+    {% for ticket in tickets %}
+      <div class="ticket-card">
+        <h3>{{ ticket.title }}</h3>
+        <p><strong>Category:</strong> {{ ticket.category }}</p>
+        <p><strong>Description:</strong> {{ ticket.description }}</p>
+        <p><strong>Status:</strong> {{ ticket.status }}</p>
+        <p><strong>Student Email:</strong> {{ ticket.email }}</p>
+        <p><strong>Student Phone:</strong> {{ ticket.phone }}</p>
+        <form method="POST" action="{{ url_for('change_status', ticket_id=ticket.id) }}">
+          <label>Change Status:</label>
+          <select name="status">
+            <option value="open" {% if ticket.status == 'open' %}selected{% endif %}>Open</option>
+            <option value="in progress" {% if ticket.status == 'in progress' %}selected{% endif %}>In Progress</option>
+            <option value="closed" {% if ticket.status == 'closed' %}selected{% endif %}>Closed</option>
+          </select>
+          <button type="submit">Update</button>
+        </form>
+        <form method="POST" action="{{ url_for('add_comment', ticket_id=ticket.id) }}">
+          <label>Add Comment:</label>
+          <textarea name="comment" required></textarea>
+          <button type="submit">Comment</button>
+        </form>
+        <div>
+          <strong>Comments:</strong>
+      <ul>
+        {% for comment in ticket.comments %}
+          <li>{{ comment.technician }}: {{ comment.comment }} ({{ comment.created_at }})</li>
+        {% else %}
+          <li>No comments yet.</li>
+        {% endfor %}
+      </ul>
     </div>
-  {% endfor %}
-  <a href="{{ url_for('reporting') }}">View Reports</a>
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </div>
+{% endfor %}
+  </div>
 </body>
 </html>
