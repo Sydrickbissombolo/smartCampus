@@ -205,7 +205,7 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        role = "student"
+        role = "technician"
         try:
             create_user(username, password, role)
             flash("Registration successful! Please log in.", "success")
