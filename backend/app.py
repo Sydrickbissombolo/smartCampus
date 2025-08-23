@@ -124,6 +124,11 @@ def student_dashboard():
     tickets = get_tickets(session["user"]["username"])
     return render_template("student.html", tickets=tickets, user=session["user"])
 
+# @app.route("/api/tickets", methods=["GET"])
+# def api_get_tickets():
+#     tickets = get_tickets()
+#     return jsonify(tickets)
+
 
 @app.route("/users")
 @login_required
@@ -209,6 +214,20 @@ def register():
         try:
             create_user(username, password, role)
             flash("Registration successful! Please log in.", "success")
+            return redirect(url_for("index"))
+        except Exception as e:
+            flash("Registration failed: " + str(e), "danger")
+    return render_template("register.html")
+
+@app.route("/register_technician", methods=["GET", "POST"])
+def register_technician():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        role = "technician"
+        try:
+            create_user(username, password, role)
+            flash("Technician registered! Please log in.", "success")
             return redirect(url_for("index"))
         except Exception as e:
             flash("Registration failed: " + str(e), "danger")

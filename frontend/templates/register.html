@@ -3,7 +3,6 @@
 <head><title>Register</title></head>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 <body>
-  <h2>Register</h2>
   <header>
   <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
   <nav>
@@ -14,6 +13,7 @@
     <a href="{{ url_for('welcome') }}" class="btn">Home</a>
   </nav>
 </header>
+  <h2>Register</h2>
   <form method="POST">
   <label>Username:</label>
   <input type="text" name="username" placeholder="Enter your username" required>

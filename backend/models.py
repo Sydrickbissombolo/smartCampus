@@ -3,6 +3,11 @@ from werkzeug.security import generate_password_hash
 import smtplib
 from email.mime.text import MIMEText
 
+
+# def get_external_tickets():
+#     response = requests.get("http://infrastructure-server-address/api/tickets")
+#     return response.json()
+
 def create_user(username, password, role):
     conn = get_db()
     hashed_pw = generate_password_hash(password)
