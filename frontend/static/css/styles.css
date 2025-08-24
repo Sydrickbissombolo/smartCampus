@@ -1,370 +1,499 @@
-/* Color Palette */
+/* BYU-Pathway Worldwide Color Palette */
 :root {
-    /* Ensign College Colors */
-    --ensign-green: #006645;
-    --ensign-light-green: #33B04A;
-    --ensign-yellow: #FDB515;
-
-    /* BYU-Idaho Colors */
-    --byui-blue: #214491;
-    --byui-black: #000000;
-    --byui-gray: #f4f4f4;
-    --byui-dark-gray: #333333;
-    --byui-white: #ffffff;
-
-    /* Supporting */
-    --neutral-border: #dddddd;
+    --primary-navy: #002e5d;       
+    --accent-gold: #fdb913;         
+    --accent-blue: #1e88e5;         
+    --neutral-light: #f4f8fb;       
+    --neutral-dark: #37474f;        
+    --support-green: #2e7d32;      
+    --support-olive: #8fa98f;     
+    --support-card: #3c5233;        
 }
 
-/* General body and layout */
+/* General layout */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--byui-gray);
+    background: var(--neutral-light);
     margin: 0;
     padding: 0;
+    color: var(--primary-navy);
     text-align: center;
-    color: var(--byui-dark-gray);
-    line-height: 1.6;
 }
 
-/* Serif accents for headings */
-h1, h2, h3, h4 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-/* Header with logo */
+/* Header */
 header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 30px;
-    background-color: var(--ensign-green);
-    color: var(--byui-white);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    background-color: var(--primary-navy);
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 header img.logo {
-    height: 110px;
-    margin-right: 20px;
+    height: 100px;
+    margin-right: 16px;
 }
 
-/* Footer */
-footer {
-    padding: 40px 20px;
-    background-color: var(--ensign-green);
-    color: var(--ensign-yellow);
-    text-align: center;
-    margin-top: 60px;
-    font-size: 0.95rem;
+header nav .btn {
+    background: var(--accent-blue);
 }
 
-footer a {
-    color: var(--ensign-yellow);
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-    color: var(--byui-white);
-}
-
-footer .small-text {
-    font-size: 0.85rem;
-    color: var(--byui-white);
-    margin-top: 8px;
-}
-
-
-/* Welcome container */
+/* Welcome section */
 .welcome-container {
-    max-width: 640px;
-    margin: 80px auto;
-    background: var(--byui-white);
+    max-width: 600px;
+    margin: 60px auto;
+    background: white;
     border-radius: 16px;
-    border: 1px solid var(--neutral-border);
-    box-shadow: 0 6px 28px rgba(0,0,0,0.05);
-    padding: 60px 40px;
+    box-shadow: 0 4px 24px rgba(0, 46, 93, 0.1);
+    padding: 48px 32px;
     text-align: center;
 }
 
 .welcome-container .logo {
-    width: 120px;
-    margin-bottom: 28px;
+    width: 110px;
+    margin: 0 auto 24px auto;
+    display: block;
 }
 
 h1 {
-    margin-top: 25px;
-    margin-bottom: 15px;
     font-size: 2.8em;
-    color: var(--byui-black);
+    margin-top: 24px;
+    color: var(--primary-navy);
 }
 
 .subtitle {
-    color: var(--byui-blue);
-    font-size: 1.25rem;
-    margin-bottom: 40px;
+    color: var(--accent-blue);
+    font-size: 1.2rem;
+    margin-bottom: 24px;
 }
 
 p {
-    color: var(--byui-dark-gray);
-    margin-bottom: 36px;
+    color: var(--neutral-dark);
     font-size: 1.1em;
-    line-height: 1.7;
+    margin-bottom: 24px;
 }
 
-/* Login container */
-.container {
-    background: var(--byui-white);
+/* Forms and containers */
+.container, .register, .login, .student, .container_users {
+    background: var(--accent-gold);
     width: 400px;
-    margin: 50px auto;
-    padding: 40px 30px;
+    margin: 40px auto;
+    padding: 28px;
     border-radius: 12px;
-    border: 1px solid var(--neutral-border);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register, .login, .student, .container_users {
+    width: 600px;
+}
+
+.container_users {
+    background: var(--accent-blue);
+    width: 880px;
 }
 
 label {
     display: block;
-    margin-top: 18px;
-    font-weight: 600;
-    color: var(--byui-dark-gray);
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--primary-navy);
     text-align: left;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
+    font-size: 1.05em;
 }
 
-input[type="text"], input[type="password"], select, textarea {
-    width: 92%;
-    padding: 12px;
-    margin: 14px 0 22px 0;
-    border: 1px solid var(--ensign-green);
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+    width: 95%;
+    height: 48px;
+    padding: 10px 12px;
+    margin: 10px 0 18px 0;
+    border: 1px solid var(--support-olive);
     border-radius: 8px;
-    background: var(--byui-white);
+    background: #f9fafc;
     font-size: 1em;
     transition: border-color 0.2s;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
-    border-color: var(--byui-blue);
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent-blue);
     outline: none;
 }
 
 /* Buttons */
-button, .btn {
-    width: 96%;
+button,
+.btn {
+    width: 95%;
     padding: 14px;
-    background: var(--byui-blue);
-    color: var(--byui-white);
+    margin: 24px 0 12px 0;
+    background: linear-gradient(90deg, var(--primary-navy) 70%, var(--accent-gold) 100%);
+    color: white;
     border: none;
     border-radius: 8px;
-    font-size: 1.05em;
+    font-size: 1em;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(0, 46, 93, 0.08);
     transition: background 0.2s, transform 0.2s;
-    margin-top: 16px;
-    margin-bottom: 14px;
-    text-decoration: none;
-    display: inline-block;
 }
 
-button:hover, .btn:hover {
-    background: var(--ensign-yellow);
-    color: var(--byui-black);
-    transform: scale(1.05);
+button:hover,
+.btn:hover {
+    background: linear-gradient(90deg, var(--accent-gold) 70%, var(--primary-navy) 100%);
+    color: var(--primary-navy);
+    transform: scale(1.04);
 }
 
-/* Ticket card styles */
-.ticket-card, .ticket {
-    background: var(--byui-white);
-    border-radius: 15px;
-    border: 1px solid var(--neutral-border);
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
-    margin-bottom: 24px;
-    padding: 24px;
-    color: var(--byui-dark-gray);
+.container-registered-users {
+    background: var(--accent-gold);
+    width: 900px;
+    margin: 40px auto;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card style for forms */
+.card-form {
+    background: var(--accent-blue);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 46, 93, 0.10);
+    padding: 40px 32px;
+    max-width: 420px;
+    margin: 60px auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Making sure forms inside .card-form take full width */
+.card-form form {
+    width: 100%;
+}
+
+/* Ticket styles */
+.ticket-card,
+.ticket {
+    background: var(--accent-blue);
+    border-radius: 14px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    color: #fff;
     text-align: left;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.ticket-card:hover, .ticket:hover {
+.ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+    width: 95%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ticket-card:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-    border-color: var(--byui-blue);
+    box-shadow: 0 4px 16px rgba(0, 46, 93, 0.12);
 }
 
 .ticket-header {
-    font-size: 1.3em;
+    font-size: 1.15em;
     font-weight: bold;
-    margin-bottom: 12px;
-    color: var(--byui-black);
-    font-family: Georgia, 'Times New Roman', serif;
+    margin-bottom: 10px;
+    color: var(--accent-gold);
 }
 
-.ticket-status, .status {
+.ticket-status {
     display: inline-block;
     padding: 6px 14px;
     border-radius: 20px;
     font-weight: bold;
-    color: var(--byui-white);
-    margin-bottom: 10px;
-    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 8px;
 }
 
+/* Status colors */
 .open { 
-    background: var(--ensign-yellow); 
-    color: var(--byui-black); 
+    background: #f6c453; 
 }
 
 .in-progress { 
-    background: var(--ensign-light-green); 
-    color: var(--byui-white); 
+    background: #fb8c00; 
 }
 
 .closed { 
-    background: var(--ensign-green); 
-    color: var(--byui-white); 
+    background: #43a047; 
 }
 
 .resolved { 
-    background: var(--byui-blue); 
-    color: var(--byui-white); 
+    background: var(--support-green); 
 }
 
 .ticket-body {
-    margin-top: 12px;
+    margin-top: 10px;
     font-size: 1em;
-    color: var(--byui-dark-gray);
-    line-height: 1.6;
+    color: #f1f1f1;
 }
 
-/* User Management Table Improvements */
+/* User table */
 .user-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 30px;
 }
 
-.user-table th, .user-table td {
-    padding: 18px 12px;
+.user-table th,
+.user-table td {
+    padding: 16px 12px;
     text-align: center;
-    vertical-align: middle;
     font-size: 1em;
 }
 
 .user-table th {
-    font-size: 1.1em;
-    background: #294936;
-    color: #fdb913;
+    background: var(--support-card);
+    color: white;
 }
 
 .user-table td {
-    background: #f4f8fb;
-}
-
-.user-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-}
-
-.user-reset-form {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-.user-reset-form input[type="text"] {
-    min-width: 140px;
-    padding: 10px;
-    font-size: 1em;
-}
-
-.user-table th[style], .user-table td[style] {
-    min-width: 140px;
-}
-
-@media (max-width: 700px) {
-    .user-table, .user-table th, .user-table td {
-        font-size: 0.95em;
-        padding: 10px 4px;
-    }
-    .user-reset-form input[type="text"] {
-        min-width: 90px;
-    }
+    background: var(--accent-blue);
+    color: var(--neutral-light);
 }
 
 /* Flash messages */
 .flash {
-    padding: 14px 22px;
-    margin-bottom: 20px;
+    padding: 12px 20px;
+    margin-bottom: 18px;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
 }
 
-.flash.success { 
-    background: #eaf7e1; 
-    color: #155724; 
-    border: 1px solid #c3e6cb; 
+.flash.success {
+    background: #eaf7e1;
+    color: var(--support-green);
+    border: 1px solid #c3e6cb;
 }
 
-.flash.danger  { 
-    background: #f8d7da; 
-    color: #721c24; 
-    border: 1px solid #f5c6cb; 
+.flash.danger {
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #f5c6cb;
 }
 
-.flash.info    { 
-    background: #d1ecf1; 
-    color: #0c5460; 
-    border: 1px solid #bee5eb; 
+.flash.info {
+    background: #e3f2fd;
+    color: var(--primary-navy);
+    border: 1px solid #bee5eb;
 }
 
 /* Links */
 a {
-    color: var(--byui-blue);
+    color: var(--accent-blue);
     text-decoration: none;
     font-weight: 500;
 }
 
 a:hover {
     text-decoration: underline;
-    color: var(--ensign-yellow);
+    color: var(--accent-gold);
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    header img.logo {
-        margin-bottom: 10px;
-    }
-
-    .welcome-container, .container {
-        width: 90%;
-        padding: 30px 20px;
-    }
-
-    .ticket-card, .ticket {
-        padding: 20px;
-    }
-
-    .user-table th, .user-table td {
-        font-size: 0.9em;
-        padding: 12px 8px;
-    }
+/* Footer */
+footer {
+    padding: 40px 20px;
+    background-color: var(--primary-navy);
+    color: var(--accent-gold);
+    text-align: center;
+    margin-top: 60px;
+    font-size: 0.9rem;
 }
-/* Chart.js styles */
+
+footer a {
+    color: var(--accent-gold);
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--neutral-light);
+}
+
+footer .small-text {
+    font-size: 0.8rem;
+    color: var(--neutral-light);
+    margin-top: 8px;
+}
+
+footer p {
+    color: var(--neutral-light);
+}
+
+/* Chart styles */
 canvas {
     max-width: 100%;
     height: auto;
     margin: 20px auto;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+/* Tablets and small laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  header img.logo {
+    height: 80px;
+    margin-right: 12px;
+  }
+
+  .welcome-container {
+    max-width: 500px;
+    padding: 40px 24px;
+  }
+
+  .register, .login, .student, .container_users {
+    width: 500px;
+  }
+
+  .container_users {
+    width: 720px;
+  }
+
+  h1 {
+    font-size: 2.4em;
+  }
+}
+
+/* Tablets and large phones (≤ 768px) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  header img.logo {
+    height: 70px;
+    margin: 0 0 10px 0;
+  }
+
+  .welcome-container {
+    margin: 40px auto;
+    padding: 32px 20px;
+  }
+
+  .register, .login, .student, .container_users {
+    width: 90%;
+    margin: 30px auto;
+    padding: 24px;
+  }
+
+  .ticket-card,
+  .ticket {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 12px 8px;
+    font-size: 0.9em;
+  }
+}
+
+/* Small phones (≤ 480px) */
+@media (max-width: 480px) {
+  body {
+    text-align: left;
+    font-size: 0.95em;
+  }
+
+ header {
+  display: flex;
+  flex-wrap: wrap; /* allows buttons to move to a new line */
+  justify-content: space-between;
+  align-items: center;
+}
+
+  header img.logo {
+    height: 60px;
+    margin: 0 0 10px 0;
+  }
+
+  .welcome-container {
+    width: 90%;
+    margin: 30px auto;
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .container, 
+  .register, 
+  .login, 
+  .student, 
+  .container_users {
+    width: 95%;
+    margin: 20px auto;
+    padding: 20px 16px;
+    border-radius: 10px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    font-size: 0.95em;
+  }
+
+  button,
+  .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95em;
+  }
+
+  .ticket-card,
+  .ticket {
+    padding: 14px;
+    font-size: 0.95em;
+  }
+
+  .user-table th,
+  .user-table td {
+    font-size: 0.8em;
+    padding: 8px 6px;
+  }
+
+  footer {
+    font-size: 0.8rem;
+    padding: 24px 12px;
+  }
 }

@@ -6,7 +6,9 @@
 </head>
 <body>
   <header>
-  <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <a href="{{ url_for('welcome') }}">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+    </a>
   <nav>
     {% if session.get('user') %}
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
@@ -24,13 +26,15 @@
         {% endfor %}
         {% endif %}
     {% endwith %}
-  <form method="POST">
-    <label>Username:</label>
-    <input type="text" name="username" required placeholder=" example: aminata"><br><br>
-    <label>Password:</label>
-    <input type="password" name="password" required placeholder="enter password"><br><br>
-    <button type="submit">Login</button>
-  </form>
+  <div class="card-form">
+    <form method="POST">
+      <label>Username:</label>
+      <input type="text" name="username" required placeholder=" example: aminata"><br><br>
+      <label>Password:</label>
+      <input type="password" name="password" required placeholder="enter password"><br><br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
   <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
 
   <footer>

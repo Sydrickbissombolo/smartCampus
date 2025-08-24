@@ -6,7 +6,9 @@
 </head>
 <body>
     <header>
-  <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <a href="{{ url_for('welcome') }}">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+    </a>
   <nav>
     {% if session.get('user') %}
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
@@ -27,19 +29,23 @@
         {% endfor %}
         {% endif %}
     {% endwith %}
-    {% for ticket in tickets %}
-      <div class="ticket-card">
-        <h3>{{ ticket.title }}</h3>
+<div class="ticket-grid">
+  {% for ticket in tickets %}
+    <div class="ticket-card">
+      <div class="ticket-header">{{ ticket.title }}</div>
+      <div class="ticket-status {{ ticket.status|lower }}">{{ ticket.status }}</div>
+      <div class="ticket-body">
         <p><strong>Category:</strong> {{ ticket.category }}</p>
         <p><strong>Description:</strong> {{ ticket.description }}</p>
-        <p><strong>Status:</strong> {{ ticket.status }}</p>
         <p><strong>Student Email:</strong> {{ ticket.email }}</p>
         <p><strong>Student Phone:</strong> {{ ticket.phone }}</p>
         {% if ticket.attachment %}
-            <p><strong>Attachment:</strong>
-                <a href="{{ url_for('static', filename='attachments/' ~ ticket.attachment) }}" target="_blank">Download</a>
-            </p>
+          <p><strong>Attachment:</strong>
+            <a href="{{ url_for('static', filename='attachments/' ~ ticket.attachment) }}" target="_blank">Download</a>
+          </p>
         {% endif %}
+      </div>
+      <div class="card-form">
         <form method="POST" action="{{ url_for('change_status', ticket_id=ticket.id) }}">
           <label>Change Status:</label>
           <select name="status">
@@ -49,26 +55,28 @@
           </select>
           <button type="submit">Update</button>
         </form>
-        <form method="POST" action="{{ url_for('add_comment', ticket_id=ticket.id) }}">
-          <label>Add Comment:</label>
-          <textarea name="comment" required></textarea>
-          <button type="submit">Comment</button>
-        </form>
-        <div>
-          <strong>Comments:</strong>
-      <ul>
-        {% for comment in ticket.comments %}
-          <li>{{ comment.technician }}: {{ comment.comment }} ({{ comment.created_at }})</li>
-        {% else %}
-          <li>No comments yet.</li>
-        {% endfor %}
-      </ul>
+      </div>
+      <form method="POST" action="{{ url_for('add_comment', ticket_id=ticket.id) }}">
+        <label>Add Comment:</label>
+        <textarea name="comment" required></textarea>
+        <button type="submit">Comment</button>
+      </form>
+      <div>
+        <strong>Comments:</strong>
+        <ul>
+          {% for comment in ticket.comments %}
+            <li>{{ comment.technician }}: {{ comment.comment }} ({{ comment.created_at }})</li>
+          {% else %}
+            <li>No comments yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-  </div>
-{% endfor %}
-  </div>
+  {% endfor %}
+</div>
+</div>
 
-  <footer>
+<footer>
   <div class="footer-content">
     <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
     <p>
@@ -80,4 +88,3 @@
   </div>
 </footer>
 </body>
-</html>

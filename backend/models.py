@@ -33,16 +33,29 @@ def get_ticket_by_id(ticket_id):
     conn.close()
     return dict(ticket) if ticket else None
 
+from email.mime.text import MIMEText
+import smtplib
+
 def send_ticket_confirmation(to_email, ticket_title):
     from_email = "smartnoreplycampus@gmail.com"
     subject = "Smart Campus Services Support"
-    body = f"Dear Student,\n\nThis is confirm that your case '{ticket_title}' has been received. Our technician will contact you soon.\n\nIf you have any other questions, please go ahead to our portal and create a new ticket.\n\nBest regards,\n\nSmart Campus Services Team"
-    msg = MIMEText(body)
+    body = f"""
+    <html>
+      <body>
+        <p>Dear Student,</p>
+        <p>This is to confirm that your case '<strong>{ticket_title}</strong>' has been received. Our technician will contact you soon.</p>
+        <p>If you have any other questions, please go to our portal and create a new ticket.</p>
+        <p>Best regards,<br>Smart Campus Services Team</p>
+        <img src="https://example.com/logo.png" alt="Developper" width="150">
+      </body>
+    </html>
+    """
+
+    msg = MIMEText(body, "html")
     msg["Subject"] = subject
     msg["From"] = from_email
     msg["To"] = to_email
 
-    # Update with your SMTP server details
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
     smtp_user = "smartnoreplycampus@gmail.com"
@@ -56,6 +69,7 @@ def send_ticket_confirmation(to_email, ticket_title):
         server.quit()
     except Exception as e:
         print("Email sending failed:", e)
+
 
 def send_email(to, subject, body):
     from_email = "smartnoreplycampus@gmail.com"

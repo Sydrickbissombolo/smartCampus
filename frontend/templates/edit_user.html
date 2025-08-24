@@ -6,7 +6,9 @@
 </head>
 <body>
   <header>
+    <a href="{{ url_for('welcome') }}">
     <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+    </a>
     <nav>
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('users') }}" class="btn">User Management</a>
@@ -15,16 +17,18 @@
   </header>
   <div class="container">
     <h2>Edit User</h2>
-    <form method="POST">
-      <label>Username:</label>
-      <input type="text" value="{{ user.username }}" disabled>
-      <label>Role:</label>
-      <select name="role">
-        <option value="student" {% if user.role == 'student' %}selected{% endif %}>Student</option>
-        <option value="technician" {% if user.role == 'technician' %}selected{% endif %}>Technician</option>
-      </select>
-      <button type="submit">Update User</button>
-    </form>
+    <div class="card-form">
+      <form method="POST">
+        <label>Username:</label>
+        <input type="text" value="{{ user.username }}" disabled>
+        <label>Role:</label>
+        <select name="role">
+          <option value="student" {% if user.role == 'student' %}selected{% endif %}>Student</option>
+          <option value="technician" {% if user.role == 'technician' %}selected{% endif %}>Technician</option>
+        </select>
+        <button type="submit">Update User</button>
+      </form>
+    </div>
   </div>
 
   <footer>

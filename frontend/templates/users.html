@@ -6,7 +6,9 @@
 </head>
 <body>
   <header>
+    <a href="{{ url_for('welcome') }}">
     <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+    </a>
     <nav>
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
@@ -14,7 +16,7 @@
       <a href="{{ url_for('welcome') }}" class="btn">Home</a>
     </nav>
   </header>
-  <div class="container">
+  <div class="container-registered-users">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
