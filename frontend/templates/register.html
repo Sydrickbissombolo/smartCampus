@@ -23,15 +23,44 @@
       {% endfor %}
     {% endif %}
   {% endwith %}
-<div class="card-form">
+<div class="card-form" id="registerForm">
   <form method="POST">
     <label>Username:</label>
     <input type="text" name="username" placeholder="Enter your username" required>
     <label>Password:</label>
     <input type="password" name="password" placeholder="Create a password" required>
+    <label>Confirm Password:</label>
+    <input type="password" name="confirm_password" placeholder="Confirm your password" required>
     <button type="submit">Register</button>
   </form>
 </div>
+
+<p id="passwordError" style="color:red;"></p>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm_password").value;
+    const errorMsg = document.getElementById("passwordError");
+
+    // Password and confirm match check
+    if (password !== confirm) {
+        e.preventDefault();
+        errorMsg.textContent = "Passwords do not match!";
+        return;
+    }
+
+    // Client-side password complexity check
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!pattern.test(password)) {
+        e.preventDefault();
+        errorMsg.textContent = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+        return;
+    }
+
+    errorMsg.textContent = "";
+});
+</script>
 
   <footer>
   <div class="footer-content">

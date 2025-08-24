@@ -3,7 +3,7 @@ from backend.database import init_db, get_db
 from backend.auth import login_required, role_required
 from backend.models import create_ticket, get_tickets, get_ticket_counts_by_week, create_user, get_users, send_ticket_confirmation, get_ticket_by_id
 from backend.emailer import send_email
-import os
+import os, re
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
@@ -205,32 +205,61 @@ def reporting():
     data = get_ticket_counts_by_week()
     return render_template("reporting.html", data=data)
 
+def is_valid_password(password):
+    """Check password complexity"""
+    pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
+    return pattern.match(password)
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
         role = "student"
+
+        # Server-side validation
+        if password != confirm_password:
+            flash("Passwords do not match!", "danger")
+            return redirect(url_for("register"))
+
+        if not is_valid_password(password):
+            flash("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.", "danger")
+            return redirect(url_for("register"))
+
         try:
             create_user(username, password, role)
             flash("Registration successful! Please log in.", "success")
             return redirect(url_for("index"))
         except Exception as e:
             flash("Registration failed: " + str(e), "danger")
+
     return render_template("register.html")
 
 @app.route("/register_technician", methods=["GET", "POST"])
 def register_technician():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
         role = "technician"
+
+        # Server-side validation
+        if password != confirm_password:
+            flash("Passwords do not match!", "danger")
+            return redirect(url_for("register_technician"))
+
+        if not is_valid_password(password):
+            flash("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.", "danger")
+            return redirect(url_for("register_technician"))
+
         try:
             create_user(username, password, role)
             flash("Technician registered! Please log in.", "success")
             return redirect(url_for("index"))
         except Exception as e:
             flash("Registration failed: " + str(e), "danger")
+
     return render_template("register.html")
 
 @app.route("/change_password", methods=["GET", "POST"])
