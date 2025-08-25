@@ -1,74 +1,78 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Student Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
-    <header>
-  <a href="{{ url_for('welcome') }}">
-    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <header>
+    <a href="{{ url_for('welcome') }}">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
     </a>
-  <nav>
-    {% if session.get('user') %}
+    <nav>
+      {% if session.get('user') %}
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
-    {% endif %}
-    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
-  </nav>
-</header>
+      {% endif %}
+      <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+    </nav>
+  </header>
   <div class="navbar">Welcome, {{ user.username }} (Student)</div>
   <h3>Create New Ticket</h3>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-        {% endfor %}
-        {% endif %}
-    {% endwith %}
-<div class="card-form">
-  <form method="POST" action="{{ url_for('new_ticket') }}">
-    <label for="title">Title:</label>
-    <input type="text" name="title" placeholder="Add a title to the ticket" required>
-    <label for="category">Category:</label>
-    <select name="category" required>
-      <option value="IT">IT</option>
-      <option value="Facilities">Facilities</option>
-      <option value="Academic">Academic</option>
-      <option value="Other">Other</option>
-    </select>
-    <label for="description">Description:</label>
-    <textarea name="description" placeholder="Please, clearly describe your issue here." required></textarea>
-    <label for="email">Your Email:</label>
-    <input type="email" name="email" placeholder="Enter your email address" required>
-    <label for="phone">Your Phone:</label>
-    <input type="text" name="phone" placeholder="Type your phone number" required>
-    <label for="attachment">Attachment:</label>
-    <input type="file" name="attachment">
-    <button type="submit">Submit Ticket</button>
-  </form>
-</div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <div class="card-form">
+    <form method="POST" action="{{ url_for('new_ticket') }}">
+      <label for="title">Title:</label>
+      <input type="text" name="title" placeholder="Add a title to the ticket" required>
+      <label for="category">Category:</label>
+      <select name="category" required>
+        <option value="IT">IT</option>
+        <option value="Facilities">Facilities</option>
+        <option value="Academic">Academic</option>
+        <option value="Other">Other</option>
+      </select>
+      <label for="description">Description:</label>
+      <textarea name="description" placeholder="Please, clearly describe your issue here." required></textarea>
+      <label for="email">Your Email:</label>
+      <input type="email" name="email" placeholder="Enter your email address" required>
+      <label for="phone">Your Phone:</label>
+      <input type="text" name="phone" placeholder="Type your phone number" required>
+      <label for="attachment">Attachment:</label>
+      <input type="file" name="attachment">
+      <button type="submit">Submit Ticket</button>
+    </form>
+  </div>
   <h3>My Tickets</h3>
   <input type="text" id="search" onkeyup="filterTickets()" placeholder="Search tickets...">
   {% for t in tickets %}
-    <div class="ticket-card">
-      <b>{{ t['title'] }}</b> ({{ t['category'] }})<br>
-      {{ t['description'] }}<br>
-      Status: {{ t['status'] }} | Created: {{ t['created_at'] }}
-    </div>
+  <div class="ticket-card">
+    <b>{{ t['title'] }}</b> ({{ t['category'] }})<br>
+    {{ t['description'] }}<br>
+    Status: {{ t['status'] }} | Created: {{ t['created_at'] }}
+  </div>
   {% endfor %}
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 
   <footer>
-  <div class="footer-content">
-    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
-    <p>
-      <a href="{{ url_for('welcome') }}">Home</a> |
-      <a href="{{ url_for('change_password') }}">Change Password</a> |
-      <a href="{{ url_for('logout') }}">Logout</a>
-    </p>
-    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+      <p>
+        <a href="{{ url_for('welcome') }}">Home</a> |
+        <a href="{{ url_for('change_password') }}">Change Password</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </p>
+      <p class="small-text">Need assistance? Contact us at <a
+          href="mailto:brazzavillegec@gmail.com">brazzavillegec@gmail.com</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>

@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Login - Smart Campus Portal</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
   <header>
-  <a href="{{ url_for('welcome') }}">
-    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+    <a href="{{ url_for('welcome') }}">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
     </a>
-  <nav>
-    {% if session.get('user') %}
+    <nav>
+      {% if session.get('user') %}
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
-    {% endif %}
-    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
-  </nav>
-</header>
-<h2>Please login to get access the ticketing system.</h2>
+      {% endif %}
+      <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+    </nav>
+  </header>
+  <h2>Please login to get access the ticketing system.</h2>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-        {% endfor %}
-        {% endif %}
-    {% endwith %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
   <div class="card-form">
     <form method="POST">
       <label>Username:</label>
@@ -38,15 +40,17 @@
   <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
 
   <footer>
-  <div class="footer-content">
-    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
-    <p>
-      <a href="{{ url_for('welcome') }}">Home</a> |
-      <a href="{{ url_for('change_password') }}">Change Password</a> |
-      <a href="{{ url_for('logout') }}">Logout</a>
-    </p>
-    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+      <p>
+        <a href="{{ url_for('welcome') }}">Home</a> |
+        <a href="{{ url_for('change_password') }}">Change Password</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </p>
+      <p class="small-text">Need assistance? Contact us at <a
+          href="mailto:brazzavillegec@gmail.com">brazzavillegec@gmail.com</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>
