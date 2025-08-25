@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Reporting</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
-    <header>
-  <a href="{{ url_for('welcome') }}">
-    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+  <header>
+    <a href="{{ url_for('welcome') }}">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
     </a>
-  <nav>
-    {% if session.get('user') %}
+    <nav>
+      {% if session.get('user') %}
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
-    {% endif %}
-    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
-  </nav>
-</header>
+      {% endif %}
+      <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+    </nav>
+  </header>
   <h2>Weekly Open Tickets</h2>
   <canvas id="chart"></canvas>
   <script>
-    const labels = {{ data|map(attribute='week')|list|tojson|safe if data else '[]' }};
-    const counts = {{ data|map(attribute='count')|list|tojson|safe if data else '[]' }};
+    const labels = {{ data| map(attribute = 'week') | list | tojson | safe if data else '[]' }};
+    const counts = {{ data| map(attribute = 'count') | list | tojson | safe if data else '[]' }};
     const ctx = document.getElementById('chart');
     new Chart(ctx, {
       type: 'bar',
@@ -38,15 +40,17 @@
   </script>
 
   <footer>
-  <div class="footer-content">
-    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
-    <p>
-      <a href="{{ url_for('welcome') }}">Home</a> |
-      <a href="{{ url_for('change_password') }}">Change Password</a> |
-      <a href="{{ url_for('logout') }}">Logout</a>
-    </p>
-    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+      <p>
+        <a href="{{ url_for('welcome') }}">Home</a> |
+        <a href="{{ url_for('change_password') }}">Change Password</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </p>
+      <p class="small-text">Need assistance? Contact us at <a
+          href="mailto:brazzavillegec@gmail.com">brazzavillegec@gmail.com</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>

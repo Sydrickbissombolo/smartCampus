@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Welcome To SMART CAMPUS SERVICES</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
   <div class="welcome-container">
     <img src="{{ url_for('static', filename='img/logo.png') }}" alt="BYU-Pathway Worldwide Logo" class="logo">
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-        {% endfor %}
-        {% endif %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     <h1>WELCOME TO SMART CAMPUS SERVICES</h1>
     <p>You Finally Found a Way out to your Trending Issue ⭐🎉</p>
     <div class="subtitle" style="color: var(--byu-light-blue); font-size: 1.2rem; margin-bottom: 32px;">
-      Powered by Newton Enterprises
+      Powered by GEC-BZV Tech Team
     </div>
     <a href="{{ url_for('index') }}" class="btn">Login / Register</a>
   </div>
 </body>
+
 </html>

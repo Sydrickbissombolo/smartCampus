@@ -1,77 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head><title>Register</title></head>
+
+<head>
+  <title>Register</title>
+</head>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 <body>
   <header>
-  <a href="{{ url_for('welcome') }}">
-    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+    <a href="{{ url_for('welcome') }}">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
     </a>
-  <nav>
-    {% if session.get('user') %}
+    <nav>
+      {% if session.get('user') %}
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
       <a href="{{ url_for('change_password') }}" class="btn">Change Password</a>
-    {% endif %}
-    <a href="{{ url_for('welcome') }}" class="btn">Home</a>
-  </nav>
-</header>
+      {% endif %}
+      <a href="{{ url_for('welcome') }}" class="btn">Home</a>
+    </nav>
+  </header>
   <h2>Register</h2>
   {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        <div class="flash {{ category }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+  {% endif %}
   {% endwith %}
-<div class="card-form" id="registerForm">
-  <form method="POST">
-    <label>Username:</label>
-    <input type="text" name="username" placeholder="Enter your username" required>
-    <label>Password:</label>
-    <input type="password" name="password" placeholder="Create a password" required>
-    <label>Confirm Password:</label>
-    <input type="password" name="confirm_password" placeholder="Confirm your password" required>
-    <button type="submit">Register</button>
-  </form>
-</div>
+  <div class="card-form" id="registerForm">
+    <form method="POST">
+      <label>Username:</label>
+      <input type="text" name="username" placeholder="Enter your username" required>
+      <label>Password:</label>
+      <input type="password" name="password" placeholder="Create a password" required>
+      <label>Confirm Password:</label>
+      <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
 
-<p id="passwordError" style="color:red;"></p>
+  <p id="passwordError" style="color:red;"></p>
 
-<script>
-document.getElementById("registerForm").addEventListener("submit", function(e) {
-    const password = document.getElementById("password").value;
-    const confirm = document.getElementById("confirm_password").value;
-    const errorMsg = document.getElementById("passwordError");
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm_password").value;
+      const errorMsg = document.getElementById("passwordError");
 
-    // Password and confirm match check
-    if (password !== confirm) {
+      // Password and confirm match check
+      if (password !== confirm) {
         e.preventDefault();
         errorMsg.textContent = "Passwords do not match!";
         return;
-    }
+      }
 
-    // Client-side password complexity check
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!pattern.test(password)) {
+      // Client-side password complexity check
+      const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!pattern.test(password)) {
         e.preventDefault();
         errorMsg.textContent = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
         return;
-    }
+      }
 
-    errorMsg.textContent = "";
-});
-</script>
+      errorMsg.textContent = "";
+    });
+  </script>
 
   <footer>
-  <div class="footer-content">
-    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
-    <p>
-      <a href="{{ url_for('welcome') }}">Home</a> |
-      <a href="{{ url_for('change_password') }}">Change Password</a> |
-      <a href="{{ url_for('logout') }}">Logout</a>
-    </p>
-    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+      <p>
+        <a href="{{ url_for('welcome') }}">Home</a> |
+        <a href="{{ url_for('change_password') }}">Change Password</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </p>
+      <p class="small-text">Need assistance? Contact us at <a
+          href="mailto:brazzavillegec@gmail.com">brazzavillegec@gmail.com</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>

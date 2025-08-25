@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Edit User</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
   <header>
     <a href="{{ url_for('welcome') }}">
-    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
     </a>
     <nav>
       <a href="{{ url_for('logout') }}" class="btn">Logout</a>
@@ -23,8 +25,8 @@
         <input type="text" value="{{ user.username }}" disabled>
         <label>Role:</label>
         <select name="role">
-          <option value="student" {% if user.role == 'student' %}selected{% endif %}>Student</option>
-          <option value="technician" {% if user.role == 'technician' %}selected{% endif %}>Technician</option>
+          <option value="student" {% if user.role=='student' %}selected{% endif %}>Student</option>
+          <option value="technician" {% if user.role=='technician' %}selected{% endif %}>Technician</option>
         </select>
         <button type="submit">Update User</button>
       </form>
@@ -32,15 +34,17 @@
   </div>
 
   <footer>
-  <div class="footer-content">
-    <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
-    <p>
-      <a href="{{ url_for('welcome') }}">Home</a> |
-      <a href="{{ url_for('change_password') }}">Change Password</a> |
-      <a href="{{ url_for('logout') }}">Logout</a>
-    </p>
-    <p class="small-text">Need assistance? Contact us at <a href="mailto:sydrick.bloom@gmail.com">sydrick.bloom@gmail.com</a></p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p>&copy; {{ current_year }} Ensign College &amp; BYU-Idaho Student Help Desk</p>
+      <p>
+        <a href="{{ url_for('welcome') }}">Home</a> |
+        <a href="{{ url_for('change_password') }}">Change Password</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </p>
+      <p class="small-text">Need assistance? Contact us at <a
+          href="mailto:brazzavillegec@gmail.com">brazzavillegec@gmail.com</a></p>
+    </div>
+  </footer>
 </body>
+
 </html>
